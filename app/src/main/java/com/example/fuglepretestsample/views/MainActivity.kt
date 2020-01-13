@@ -1,7 +1,8 @@
-package com.example.fuglepretestsample
+package com.example.fuglepretestsample.views
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.fuglepretestsample.R
 
 class MainActivity : AppCompatActivity() {
 
