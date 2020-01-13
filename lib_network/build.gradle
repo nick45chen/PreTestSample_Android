@@ -36,6 +36,7 @@ dependencies {
     api this.rootProject.depsLibs.retrofit
     api this.rootProject.depsLibs.retrofit_adapter
     api this.rootProject.depsLibs.retrofit_gson
+    api this.rootProject.depsLibs.okhttp_logging
     // RxJava
     implementation rootProject.depsLibs.rxjava
     implementation rootProject.depsLibs.rxandroid

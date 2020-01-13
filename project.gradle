@@ -16,6 +16,7 @@ ext {
             retrofit_adapter: '2.2.0',
             rxjava          : '2.2.9',
             rxandroid       : '2.1.1',
+            okhttp_logging : "3.8.1"
     ]
 
     depsLibs = [
@@ -27,5 +28,6 @@ ext {
             retrofit_gson   : "com.squareup.retrofit2:converter-gson:$depsVersion.retrofit_adapter",
             rxjava          : "io.reactivex.rxjava2:rxjava:${depsVersion.rxjava}",
             rxandroid       : "io.reactivex.rxjava2:rxandroid:${depsVersion.rxandroid}",
+            okhttp_logging : "com.squareup.okhttp3:logging-interceptor:${depsVersion.okhttp_logging}"
     ]
 }
