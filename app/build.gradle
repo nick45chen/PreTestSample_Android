@@ -38,6 +38,8 @@ dependencies {
     kapt "com.android.databinding:compiler:$gradle_version"
     implementation this.rootProject.depsLibs.appcompatx
     implementation this.rootProject.depsLibs.constraintlayout
+    implementation this.rootProject.depsLibs.material
+    implementation this.rootProject.depsLibs.cardview
     implementation this.rootProject.depsLibs.android_ktx_core
     // ViewModel and LiveData
     implementation this.rootProject.depsLibs.lifecycle_extensions
