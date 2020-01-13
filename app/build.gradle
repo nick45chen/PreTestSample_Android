@@ -39,6 +39,8 @@ dependencies {
     implementation this.rootProject.depsLibs.appcompatx
     implementation this.rootProject.depsLibs.constraintlayout
     implementation this.rootProject.depsLibs.android_ktx_core
+    // ViewModel and LiveData
+    implementation this.rootProject.depsLibs.lifecycle_extensions
     // RxJava
     implementation rootProject.depsLibs.rxjava
     implementation rootProject.depsLibs.rxandroid
