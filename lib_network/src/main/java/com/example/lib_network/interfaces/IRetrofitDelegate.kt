@@ -1,4 +1,4 @@
-package com.example.lib_network
+package com.example.lib_network.interfaces
 
 import java.util.HashMap
 
