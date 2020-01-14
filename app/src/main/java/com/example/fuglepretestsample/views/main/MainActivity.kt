@@ -32,11 +32,8 @@ class MainActivity : BaseActivity() {
         super.setUpToolbar(view = viewBinding.toolbar, title = "Symbols")
         setUpLoadingView(view = viewBinding.swipeRefreshView, viewModel = viewModel)
         setUpPullRefreshView(view = viewBinding.swipeRefreshView, viewModel = viewModel)
-        setUpStocksListView(view = viewBinding.recyclerView, viewModel = viewModel)
-    }
-
-    override fun onStart() {
-        super.onStart()
+        setUpStocksListView(view = viewBinding, viewModel = viewModel)
+        //
         viewModel.requestApi()
     }
 
@@ -62,9 +59,11 @@ class MainActivity : BaseActivity() {
     /**
      * 股票列表
      * */
-    private fun setUpStocksListView(view: RecyclerView, viewModel: MainViewModel) {
-        view.adapter = adapter
+    private fun setUpStocksListView(view: ActivityMainBinding, viewModel: MainViewModel) {
+        view.isShowAlert = true
+        view.recyclerView.adapter = adapter
         viewModel.stocksLiveData.observe(this, Observer {
+            view.isShowAlert = false
             adapter.updateData(it)
         })
     }
