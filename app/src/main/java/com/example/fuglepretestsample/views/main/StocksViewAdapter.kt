@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.fuglepretestsample.R
 import com.example.fuglepretestsample.databinding.LayoutMainListItemBinding
 import com.example.fuglepretestsample.models.Stock
+import com.example.fuglepretestsample.views.web.WebViewActivity
 
 class StocksViewAdapter : RecyclerView.Adapter<StocksViewAdapter.ItemViewHolder>() {
 
@@ -50,6 +51,10 @@ class StocksViewAdapter : RecyclerView.Adapter<StocksViewAdapter.ItemViewHolder>
                 txtSymbols.text = data.symbols
                 txtTime.text = data.time.toString()
                 txtPrice.text = String.format("$%s", data.price)
+                //
+                root.setOnClickListener {
+                    it.context.startActivity(WebViewActivity.intentToSymbolsDetailView(it.context, data.symbols))
+                }
             }
         }
     }

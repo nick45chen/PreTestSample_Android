@@ -29,7 +29,7 @@ class MainActivity : BaseActivity() {
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
         viewModel.injectRepository(repository)
         //
-        setUpToolbarView(view = viewBinding.toolbar, title = "Symbols")
+        super.setUpToolbar(view = viewBinding.toolbar, title = "Symbols")
         setUpLoadingView(view = viewBinding.swipeRefreshView, viewModel = viewModel)
         setUpPullRefreshView(view = viewBinding.swipeRefreshView, viewModel = viewModel)
         setUpStocksListView(view = viewBinding.recyclerView, viewModel = viewModel)
@@ -40,10 +40,6 @@ class MainActivity : BaseActivity() {
         viewModel.requestApi()
     }
 
-    private fun setUpToolbarView(view: Toolbar, @Suppress("SameParameterValue") title: String) {
-        super.setSupportActionBar(view)
-        super.getSupportActionBar()?.title = title
-    }
     /**
      * Loading view
      * */
@@ -53,6 +49,7 @@ class MainActivity : BaseActivity() {
                 view.isRefreshing = it
             })
     }
+
     /**
      * 下拉刷新
      * */
@@ -61,6 +58,7 @@ class MainActivity : BaseActivity() {
             viewModel.requestApi()
         }
     }
+
     /**
      * 股票列表
      * */
