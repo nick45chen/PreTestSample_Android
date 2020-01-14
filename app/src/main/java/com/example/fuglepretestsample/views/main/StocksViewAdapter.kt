@@ -1,13 +1,15 @@
 package com.example.fuglepretestsample.views.main
 
+import android.text.format.DateFormat
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.fuglepretestsample.R
 import com.example.fuglepretestsample.databinding.LayoutMainListItemBinding
 import com.example.fuglepretestsample.models.Stock
 import com.example.fuglepretestsample.views.web.WebViewActivity
+import java.util.*
+
 
 class StocksViewAdapter : RecyclerView.Adapter<StocksViewAdapter.ItemViewHolder>() {
 
@@ -17,7 +19,7 @@ class StocksViewAdapter : RecyclerView.Adapter<StocksViewAdapter.ItemViewHolder>
         return ItemViewHolder(
             DataBindingUtil.inflate(
                 LayoutInflater.from(parent.context),
-                R.layout.layout_main_list_item,
+                com.example.fuglepretestsample.R.layout.layout_main_list_item,
                 parent,
                 false
             )
@@ -42,6 +44,17 @@ class StocksViewAdapter : RecyclerView.Adapter<StocksViewAdapter.ItemViewHolder>
         notifyDataSetChanged()
     }
 
+    private fun convertTimestampToDate(timestamp: Long): String {
+        return try {
+            val cal = Calendar.getInstance(Locale.getDefault())
+            cal.timeInMillis = timestamp
+            DateFormat.format("yyyy-MM-dd hh:mm:ss", cal).toString()
+        } catch (e: Exception) {
+            e.printStackTrace()
+            ""
+        }
+    }
+
     inner class ItemViewHolder(private val itemViewBinding: LayoutMainListItemBinding) :
         RecyclerView.ViewHolder(itemViewBinding.root) {
         fun updateView(data: Stock) {
@@ -49,11 +62,16 @@ class StocksViewAdapter : RecyclerView.Adapter<StocksViewAdapter.ItemViewHolder>
                 isUps = true
                 txtName.text = data.name
                 txtSymbols.text = data.symbols
-                txtTime.text = data.time.toString()
+                txtTime.text = convertTimestampToDate(data.time)
                 txtPrice.text = String.format("$%s", data.price)
                 //
                 root.setOnClickListener {
-                    it.context.startActivity(WebViewActivity.intentToSymbolsDetailView(it.context, data.symbols))
+                    it.context.startActivity(
+                        WebViewActivity.intentToSymbolsDetailView(
+                            it.context,
+                            data.symbols
+                        )
+                    )
                 }
             }
         }
