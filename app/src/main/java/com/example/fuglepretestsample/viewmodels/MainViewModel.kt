@@ -22,10 +22,16 @@ class MainViewModel : ViewModel() {
 
     private lateinit var repository: StocksRepository
 
+    /**
+     * 注入依賴庫
+     * */
     fun injectRepository(repository: StocksRepository) {
         this.repository = repository
     }
 
+    /**
+     * 請求 API 呼叫
+     * */
     fun requestApi() {
         getStocks()
     }

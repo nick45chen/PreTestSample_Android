@@ -33,7 +33,7 @@ class MainActivity : BaseActivity() {
         setUpLoadingView(view = viewBinding.swipeRefreshView, viewModel = viewModel)
         setUpPullRefreshView(view = viewBinding.swipeRefreshView, viewModel = viewModel)
         setUpStocksListView(view = viewBinding, viewModel = viewModel)
-        //
+        // 呼叫API
         viewModel.requestApi()
     }
 
