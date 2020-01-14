@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">FuglePreTestSample</string>
+    <string name="plz_wait_loading">加載中...請稍候</string>
 </resources>
