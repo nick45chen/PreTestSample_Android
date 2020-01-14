@@ -4,7 +4,7 @@ import io.reactivex.ObservableTransformer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class SchedulersTransformers {
+object SchedulersTransformers {
     /**
      * 使用RxTransformer封裝切換線程代碼
      * 如何使用: rx Observable.compose(T);

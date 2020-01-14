@@ -3,10 +3,13 @@ package com.example.fuglepretestsample.views.main
 import android.os.Bundle
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.fuglepretestsample.R
 import com.example.fuglepretestsample.databinding.ActivityMainBinding
+import com.example.fuglepretestsample.repositories.StocksRepository
 import com.example.fuglepretestsample.viewmodels.MainViewModel
 import com.example.fuglepretestsample.views.base.BaseActivity
 
@@ -17,24 +20,54 @@ class MainActivity : BaseActivity() {
 
     private lateinit var viewBinding: ActivityMainBinding
     private lateinit var viewModel: MainViewModel
+    private val repository by lazy { StocksRepository() }
+    private val adapter by lazy { StocksViewAdapter() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+        viewModel.injectRepository(repository)
         //
         setUpToolbarView(view = viewBinding.toolbar, title = "Symbols")
-        setUpStocksListView(view = viewBinding.recyclerView)
+        setUpLoadingView(view = viewBinding.swipeRefreshView, viewModel = viewModel)
+        setUpPullRefreshView(view = viewBinding.swipeRefreshView, viewModel = viewModel)
+        setUpStocksListView(view = viewBinding.recyclerView, viewModel = viewModel)
     }
 
-    private fun setUpToolbarView(
-        view: Toolbar,
-        @Suppress("SameParameterValue") title: String) {
+    override fun onStart() {
+        super.onStart()
+        viewModel.requestApi()
+    }
+
+    private fun setUpToolbarView(view: Toolbar, @Suppress("SameParameterValue") title: String) {
         super.setSupportActionBar(view)
         super.getSupportActionBar()?.title = title
     }
-
-    private fun setUpStocksListView(view: RecyclerView) {
-        view.adapter = StocksViewAdapter()
+    /**
+     * Loading view
+     * */
+    private fun setUpLoadingView(view: SwipeRefreshLayout, viewModel: MainViewModel) {
+        viewModel.isLoadingLiveData.observe(this,
+            Observer<Boolean> {
+                view.isRefreshing = it
+            })
+    }
+    /**
+     * 下拉刷新
+     * */
+    private fun setUpPullRefreshView(view: SwipeRefreshLayout, viewModel: MainViewModel) {
+        view.setOnRefreshListener {
+            viewModel.requestApi()
+        }
+    }
+    /**
+     * 股票列表
+     * */
+    private fun setUpStocksListView(view: RecyclerView, viewModel: MainViewModel) {
+        view.adapter = adapter
+        viewModel.stocksLiveData.observe(this, Observer {
+            adapter.updateData(it)
+        })
     }
 }

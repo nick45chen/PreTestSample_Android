@@ -1,6 +1,7 @@
 package com.example.lib_network
 
 import android.util.Log
+import com.example.lib_network.interfaces.IRetrofitDelegate
 import com.google.gson.GsonBuilder
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
