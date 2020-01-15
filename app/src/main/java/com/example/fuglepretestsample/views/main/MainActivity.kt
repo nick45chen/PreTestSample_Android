@@ -1,11 +1,9 @@
 package com.example.fuglepretestsample.views.main
 
 import android.os.Bundle
-import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.fuglepretestsample.R
 import com.example.fuglepretestsample.databinding.ActivityMainBinding
@@ -35,6 +33,11 @@ class MainActivity : BaseActivity() {
         setUpStocksListView(view = viewBinding, viewModel = viewModel)
         // 呼叫API
         viewModel.requestApi()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        repository.destroyAllEvent()
     }
 
     /**
