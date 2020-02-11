@@ -9,6 +9,7 @@ import com.example.fuglepretestsample.R
 import com.example.fuglepretestsample.databinding.ActivityMainBinding
 import com.example.fuglepretestsample.repositories.StocksRepository
 import com.example.fuglepretestsample.viewmodels.MainViewModel
+import com.example.fuglepretestsample.viewmodels.MainViewModelFactory
 import com.example.fuglepretestsample.views.base.BaseActivity
 
 /**
@@ -24,8 +25,8 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
-        viewModel.injectRepository(repository)
+        viewModel = ViewModelProviders.of(this, MainViewModelFactory(repository))
+            .get(MainViewModel::class.java)
         //
         super.setUpToolbar(view = viewBinding.toolbar, title = "Symbols")
         setUpLoadingView(view = viewBinding.swipeRefreshView, viewModel = viewModel)
