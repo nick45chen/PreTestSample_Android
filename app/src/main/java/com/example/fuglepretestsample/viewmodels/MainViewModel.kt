@@ -6,12 +6,12 @@ import androidx.lifecycle.ViewModel
 import com.example.fuglepretestsample.models.Stock
 import com.example.fuglepretestsample.models.Symbols
 import com.example.fuglepretestsample.models.SymbolsLast
-import com.example.fuglepretestsample.repositories.StocksRepository
+import com.example.fuglepretestsample.repositories.IStocksRepository
 import com.example.lib_network.interfaces.IApiCallback
 import java.util.*
 
 
-class MainViewModel : ViewModel() {
+class MainViewModel(private val repository: IStocksRepository) : ViewModel() {
 
     companion object {
         private const val RANDOM_COUNT = 30
@@ -20,23 +20,10 @@ class MainViewModel : ViewModel() {
     val isLoadingLiveData: LiveData<Boolean> by lazy { MutableLiveData<Boolean>() }
     val stocksLiveData: LiveData<List<Stock>> by lazy { MutableLiveData<List<Stock>>() }
 
-    private lateinit var repository: StocksRepository
-
-    /**
-     * 注入依賴庫
-     * */
-    fun injectRepository(repository: StocksRepository) {
-        this.repository = repository
-    }
-
     /**
      * 請求 API 呼叫
      * */
-    fun requestApi() {
-        getStocks()
-    }
-
-    private fun getStocks() {
+    fun getStocks() {
         repository.getSymbols(object : IApiCallback<List<Symbols>> {
             override fun onStart() {
                 (isLoadingLiveData as MutableLiveData).postValue(true)
@@ -55,7 +42,7 @@ class MainViewModel : ViewModel() {
         })
     }
 
-    private fun getStocksLast(symbolsList: List<Symbols>) {
+    fun getStocksLast(symbolsList: List<Symbols>) {
         repository.getSymbolsLast(object : IApiCallback<List<SymbolsLast>> {
             override fun onStart() {
                 (isLoadingLiveData as MutableLiveData).postValue(true)
@@ -90,7 +77,6 @@ class MainViewModel : ViewModel() {
             val randomIndex = rand.nextInt(dataList.size)
             randomList.add(dataList.removeAt(randomIndex))
         }
-
         return randomList
     }
 
