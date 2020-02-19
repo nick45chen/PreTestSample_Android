@@ -33,7 +33,7 @@ class MainActivity : BaseActivity() {
         setUpPullRefreshView(view = viewBinding.swipeRefreshView, viewModel = viewModel)
         setUpStocksListView(view = viewBinding, viewModel = viewModel)
         // 呼叫API
-        viewModel.requestApi()
+        viewModel.getStocks()
     }
 
     override fun onDestroy() {
@@ -56,7 +56,7 @@ class MainActivity : BaseActivity() {
      * */
     private fun setUpPullRefreshView(view: SwipeRefreshLayout, viewModel: MainViewModel) {
         view.setOnRefreshListener {
-            viewModel.requestApi()
+            viewModel.getStocks()
         }
     }
 

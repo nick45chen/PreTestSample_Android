@@ -20,7 +20,8 @@ ext {
             lifecycle       : "2.1.0",
             material        : "1.0.0",
             junit           : "4.12",
-            mockito         : "2.8.47"
+            mockito         : "2.8.47",
+            arch_testing    : "2.1.0"
     ]
 
     depsLibs = [
@@ -37,6 +38,7 @@ ext {
             material            : "com.google.android.material:material:${depsVersion.material}",
             cardview            : "androidx.cardview:cardview:${depsVersion.material}",
             // test
+            arch_testing        : "androidx.arch.core:core-testing:${depsVersion.arch_testing}",
             junit               : "junit:junit:${depsVersion.junit}",
             mockito             : "org.mockito:mockito-core:${depsVersion.mockito}"
     ]

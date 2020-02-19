@@ -23,11 +23,7 @@ class MainViewModel(private val repository: IStocksRepository) : ViewModel() {
     /**
      * 請求 API 呼叫
      * */
-    fun requestApi() {
-        getStocks()
-    }
-
-    private fun getStocks() {
+    fun getStocks() {
         repository.getSymbols(object : IApiCallback<List<Symbols>> {
             override fun onStart() {
                 (isLoadingLiveData as MutableLiveData).postValue(true)
@@ -46,7 +42,7 @@ class MainViewModel(private val repository: IStocksRepository) : ViewModel() {
         })
     }
 
-    private fun getStocksLast(symbolsList: List<Symbols>) {
+    fun getStocksLast(symbolsList: List<Symbols>) {
         repository.getSymbolsLast(object : IApiCallback<List<SymbolsLast>> {
             override fun onStart() {
                 (isLoadingLiveData as MutableLiveData).postValue(true)
@@ -81,7 +77,6 @@ class MainViewModel(private val repository: IStocksRepository) : ViewModel() {
             val randomIndex = rand.nextInt(dataList.size)
             randomList.add(dataList.removeAt(randomIndex))
         }
-
         return randomList
     }
 

@@ -49,6 +49,7 @@ dependencies {
     // Module
     implementation project(path: ':lib_network')
     // test
+    testImplementation this.rootProject.depsLibs.arch_testing
     testImplementation this.rootProject.depsLibs.junit
     testImplementation this.rootProject.depsLibs.mockito
 }
